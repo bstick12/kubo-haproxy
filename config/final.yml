@@ -1,0 +1,5 @@
+name: kubo-haproxy
+blobstore:
+  provider: s3
+  options:
+    bucket_name: bstick12-bosh-releases

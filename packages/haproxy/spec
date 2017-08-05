@@ -1,0 +1,5 @@
+---
+name: haproxy
+files:
+  - haproxy/haproxy-1.7.8.tar.gz
+  - haproxy/pcre-8.4.1.tar.gz
