@@ -1,2 +1,10 @@
 config/private.yml
+.blobs
 blobs/
+bin
+pkg
+releases/*.tgz
+.cache
+.final_builds/**/*.tgz
+.dev_builds/
+dev_releases/
