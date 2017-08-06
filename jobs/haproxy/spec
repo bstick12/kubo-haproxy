@@ -1,0 +1,18 @@
+---
+name: haproxy
+
+description: "The HA Proxy server for use with a Kubernetes Cluster"
+
+packages:
+  - haproxy
+
+templates:
+  bin/haproxy_ctl.erb: bin/haproxy_ctl
+  config/haproxy.cfg.erb: config/haproxy.cfg
+
+consumes:
+  - name: workers_backend
+    type: ssh_proxy
+    optional: true
+
+properties: {}

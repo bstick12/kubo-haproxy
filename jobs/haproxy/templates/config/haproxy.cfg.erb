@@ -1,0 +1,23 @@
+global
+  daemon
+  user vcap
+  group vcap
+  maxconn 64000
+  spread-checks 4
+
+defaults
+  timeout connect 5000ms
+  timeout client 50000ms
+  timeout server 50000ms
+
+<%
+if_link("workers_backend") do |workers_instances|
+%>
+listen worker-ports
+  bind <%=spec.ip%>:30000-32767
+  mode tcp
+  balance roundrobin
+<% workers_instances.instances.map(&:address).each_with_index do |ip, index| -%>
+  server srv<%= index %> <%= ip %>
+<% end -%>
+<% end %>

@@ -1,0 +1,53 @@
+#!/bin/bash
+
+set -euxo
+
+export PATH="/var/vcap/packages/haproxy/bin/:${PATH}"
+
+DESC="HAProxy"
+
+RUN_DIR=/var/vcap/sys/run/haproxy
+PIDFILE="${RUN_DIR}/haproxy.pid"
+LOG_DIR=/var/vcap/sys/log/haproxy
+JOB_DIR=/var/vcap/jobs/haproxy
+CONFIG_DIR="${JOB_DIR}/config"
+
+mkdir -p "${RUN_DIR}" "${LOG_DIR}"
+chown -R vcap:vcap "${RUN_DIR}" "${LOG_DIR}"
+
+start_haproxy() {
+  haproxy -f "${CONFIG_DIR}/haproxy.cfg" -D -p "${PIDFILE}" -sf $(cat "${PIDFILE}")
+}
+
+stop_haproxy() {
+  pkill -g $(ps -ho pgrp $(head -1 "${PIDFILE}"))
+}
+
+restart_haproxy() {
+  stop_haproxy
+  start_haproxy
+}
+
+case "$1" in
+    start)
+        echo -n "Starting ${DESC}: "
+        start_haproxy
+        RETVAL=0
+        ;;
+    stop)
+        echo -n "Stopping ${DESC}: "
+        stop_haproxy
+        RETVAL=0
+        ;;
+    force-reload|reload|restart)
+        echo -n "Restarting ${DESC}: "
+        restart_haproxy
+        RETVAL=0
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|reload|force-reload}" >&2
+        RETVAL=1
+        ;;
+esac
+
+exit "${RETVAL}"

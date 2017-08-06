@@ -1,9 +1,12 @@
 haproxy/haproxy-1.7.8.tar.gz:
   size: 1746321
+  object_id: 43e80871-185b-4b77-5536-d3a36b7556b9
   sha: c96e3c345afe6024971980163e939997a01e7cbb
 haproxy/pcre-8.41.tar.gz:
   size: 2068775
+  object_id: 94c3b7ba-31c4-4e71-56fa-e1c1b39075f1
   sha: dddf0995aefe04cc6267c1448ffef0e7b0560ec0
 keepalived/keepalived-1.3.5.tar.gz:
   size: 683183
+  object_id: 8d1c8979-3322-4137-6d62-7825f9a79f2f
   sha: 5a373d8f5d382700cf53b827947a92a7f4cef148
