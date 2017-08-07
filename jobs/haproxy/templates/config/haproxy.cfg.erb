@@ -11,13 +11,13 @@ defaults
   timeout server 50000ms
 
 <%
-if_link("workers_backend") do |workers_instances|
+if_link("backends") do |backend_instances|
 %>
-listen worker-ports
-  bind *:30000-32767
+listen backend-ports
+  bind *:<%= p("haproxy.port_range") %>
   mode tcp
   balance roundrobin
-<% workers_instances.instances.map(&:address).each_with_index do |ip, index| -%>
+<% backend_instances.instances.map(&:address).each_with_index do |ip, index| -%>
   server srv<%= index %> <%= ip %>
 <% end -%>
 <% end -%>

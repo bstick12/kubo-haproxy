@@ -11,8 +11,10 @@ templates:
   config/haproxy.cfg.erb: config/haproxy.cfg
 
 consumes:
-  - name: workers_backend
+  - name: backends
     type: ssh_proxy
     optional: true
 
-properties: {}
+properties:
+  haproxy.port_range:
+    description: Port range to bind upon
